@@ -1,3 +1,4 @@
+/* c'est un test*/
 /*remplacer <dateachanger> par la vraie date*/
 
 libname in1 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\dico1";
