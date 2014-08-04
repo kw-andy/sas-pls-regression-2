@@ -1,4 +1,4 @@
-/* c'est un test */
+/* c'est un test - le 04/08/14 */
 /* remplacer <dateachanger> par la vraie date */
 
 libname in1 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\dico1";
