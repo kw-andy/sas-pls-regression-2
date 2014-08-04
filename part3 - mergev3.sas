@@ -1,5 +1,10 @@
 /* changer le libname et le log */
 /* penser a  enlever MT, HR et CY si pas encore de choix */
+
+/*%let pays1=FR ; %let pays2=AT ; %let pays3=BE ; %let pays4=BG; %let pays5=CZ ; %let pays6=DK ; %let pays7=DE ; %let pays8=EE; %let pays9=IE; %let pays10=EL; %let pays11=ES;  
+%let pays12=IT; %let pays13=LV; %let pays14=LT; %let pays15=LU; %let pays16=HU; %let pays17=NL; %let pays18=PL; %let pays19=PT; %let pays20=RO; %let pays21=SI; %let pays22=SK; %let pays23=FI; %let pays24=SE; %let pays25=UK; 
+*/
+
 /* et penser a changer   %do l=1 %to 28 ; par le nombre adequat de pays */
 
 /* remplacer <dateachanger> par la vraie date */
