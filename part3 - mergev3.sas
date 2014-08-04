@@ -30,6 +30,7 @@ proc printto log="C:\travail\etudes\projetpib\docs\p3_<dateachanger>_v3.log" new
 
 /* variables pour 28 pays */
 
+/* Ne pas oublier de changer en 25 si c'est necessaire */
   
   %do l=1 %to 28 ;
   
