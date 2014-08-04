@@ -1,6 +1,12 @@
+/* remplacer <dateachanger> par la vraie date */
+
 libname in1 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\dico1";
 
+/* remplacer <dateachanger> par la vraie date */
+
 libname in2 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\dico2";
+
+/* remplacer <MoisAnnee> par le mois et l'annee */
 
 proc printto log="C:\travail\etudes\projetpib\docs\p2_<MoisAnnee>_v11.log" new;
 
@@ -2615,7 +2621,7 @@ proc datasets library = work;
     DELETE &vartabname;
 run;
 
-/* debut pour supprimer les valeurs redondantes dans le dico et dans les tables pays*/
+/* debut pour supprimer les valeurs redondantes dans le dico et dans les tables pays */
 
 
 proc sql;
@@ -2678,10 +2684,10 @@ proc datasets library = work;
     DELETE &vartabname;
 run;
 
-/* fin pour supprimer les valeurs redondantes dans le dico et dans les tables pays*/
+/* fin pour supprimer les valeurs redondantes dans le dico et dans les tables pays */
 
 
-/* debut pour les variables avec uniquement des valeurs manquantes*/
+/* debut pour les variables avec uniquement des valeurs manquantes */
 
 proc means data=a&&pays&nopays  noprint;
 output out=atta(drop=_:) n=;
@@ -2718,9 +2724,9 @@ proc datasets library = work;
 run;
 
 
-/* fin pour les variables avec uniquement des valeurs manquantes*/
+/* fin pour les variables avec uniquement des valeurs manquantes */
 
-/* debut pour les variables avec plus de 474 mois avec des valeurs manquantes*/
+/* debut pour les variables avec plus de 474 mois avec des valeurs manquantes */
  
 proc means data=a&&pays&nopays nmiss stackodsoutput; 
 ods output summary=missing&&pays&nopays;
@@ -2768,9 +2774,15 @@ proc datasets library = work;
     DELETE &vartabname;
 run;
 
-/* fin pour les variables avec plus de 474 mois avec des valeurs manquantes*/
+/* fin pour les variables avec plus de 474 mois avec des valeurs manquantes */
+
+/* on sauvegarde les fichiers dans in2 */
+
+data in2.a&&pays&nopays; set a&&pays&nopays; run;
+data in2.dico&&pays&nopays; set dico&&pays&nopays; run;
 
 %end;
+
 %mend;
 
 %dropcolsql;

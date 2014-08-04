@@ -1,21 +1,30 @@
 
+/* remplacer <dateachanger> par la vraie date */
+
 libname in3 
 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\dico3"  ;
 
-proc printto log="C:\travail\etudes\projetpib\docs\p4_MoisAnnee_v1.log" new;
+/* remplacer <dateachanger> par la vraie date */
+
+libname in4 
+"C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\dico4"  ;
+
+/* remplacer <MoisAnnee> par le mois et l'annee */
+
+proc printto log="C:\travail\etudes\projetpib\docs\p4_MoisAnnee_v2.log" new;
   
 %macro lapls;
   
 /*options SOURCE SOURCE2 MACROGEN SYMBOLGEN MLOGIC MPRINT;*/
  
-/*1ere partie*/ 
+/* 1ere partie */ 
 
 %let pays1=FR ; %let pays2=DE ; %let pays3=UK; %let pays4=IT;%let pays5=ES; %let pays6=DK ;%let pays7=AT ; %let pays8=EE; %let pays9=IE; %let pays10=EL; %let pays11=CZ ; %let pays12=HR;  %let pays13=BG; %let pays14=CY; 
 %let pays15=LV; %let pays16=LT; %let pays17=LU; %let pays18=HU; %let pays19=MT; %let pays20=NL; %let pays21=PL; %let pays22=PT; %let pays23=RO; %let pays24=SI; %let pays25=SK; %let pays26=FI; %let pays27=SE;  %let pays28=BE ; 
 
-/* variables pour 28 pays*/
+/* variables pour 28 pays */
 
-   /*test: necessite de changer le l pour le pays concerne*/
+/* test: necessite de changer le l pour le(s) pays concerne (s) */
 %do l=1 %to 5 ;
 
 data a&&pays&l.._res ; 
@@ -26,7 +35,7 @@ res=find(intitule,",&&pays&l")  ;
 if res gt 0 ;
 run ;
   
-  /*on change le nom de la variable dans le dictionnaire. De cette façon, elle sera prise en compte*/
+ /* on change le nom de la variable dans le dictionnaire. De cette facon, elle sera prise en compte */
 
   
 data dico&&pays&l ; set dico&&pays&l ;
@@ -40,7 +49,7 @@ if _n_ eq &i then call symput("var&&pays&l.._&i",trim(left(nomvar))) ;
 %end ;
 run ;
 
-/*options nonotes ;*/
+options nonotes ;
 
 %do la=0 %to 5 ;/* 0*/
  
@@ -213,9 +222,10 @@ proc print data=a&&pays&l.._res  ;
 var annee qtr model hprev delta delta_pib edelta_pib prev_pib act_pib ; 
 run ; 
 
+data in4.a&&pays&l.._res ; set a&&pays&l.._res ;
+
 %end;
 
-  
 %mend ;
 
 %lapls;

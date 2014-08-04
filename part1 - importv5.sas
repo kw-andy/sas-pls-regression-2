@@ -1,12 +1,17 @@
-/* c'est un test*/
-/*remplacer <dateachanger> par la vraie date*/
+/* c'est un test */
+/* remplacer <dateachanger> par la vraie date */
 
 libname in1 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\dico1";
 
-/*options macrogen symbolgen ;*/
+/* options macrogen symbolgen ; */
+
+/* remplacer <dateachanger> par la vraie date */
 
 proc printto log="C:\travail\etudes\projetpib\docs\p1_<dateachanger>_v5.log" new;
 
+/* partie 1 : mise en place de la correspondance des noms des fichiers et des noms des series telechargeee */
+
+/* remplacer <dateachanger> par la vraie date */
 
 PROC IMPORT OUT= corresp1
             DATAFILE= "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\corresp<dateachanger>.txt"  
@@ -17,7 +22,9 @@ PROC IMPORT OUT= corresp1
      DATAROW=1; 
 RUN;
 
-/* Nllecorresp20140704_v1.txt = fichier vidé des vx1 vx2 etc ...*/
+/* Nllecorresp<dateachanger>_v1.txt = fichier sans les v1, v2 etc ... */
+
+/* remplacer <dateachanger> par la vraie date */
 
 PROC IMPORT OUT= corresp2
             DATAFILE= "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\nllecorresp<dateachanger>.txt"  
@@ -106,17 +113,20 @@ if var1="sts_selb_m.tsv" then do; periode="m"; date_publi="m+84";end;
 run;
 
 
-/* changer le nom du repertoire */
 
+/* debut de la macro */
+/* remplacer <dateachanger> par la vraie date */
 
 %macro lec ;
 
-
+/* partie 1 macro : import du dictionnaire et des donnees */
+/* nfic=88 : Nombre = Nombres de fichiers CSV ...*/
 
 %let nfic=88  ; 
 
 %do i=1 %to &nfic  ;
 
+/* remplacer <dateachanger> par la vraie date */
 
 data dico&i;
 infile "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\fich&i..csv" dlm=';' lrecl=900000 obs=1; 
@@ -141,6 +151,7 @@ length nom_fic $ 10;
 nom_fic="fich&i..csv"; 
 run ;
 
+/*remplacer <dateachanger> par la vraie date*/
 
 PROC IMPORT OUT= fic&i 
             DATAFILE= "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\fich&i..csv"  
@@ -185,20 +196,6 @@ proc datasets noprint ; delete fic&i ; run ;
 %end ; 
 
 
-
-/*data a ; set a ; 
-%do i=1 %to &nfic ; 
-%do l=1 %to &&nvar&i ; 
-%let j=%eval(&i-1) ; 
-rename var&i._&l=var%eval(&l %do k=1 %to %eval(&i-1) ; +&&nvar&k %end ;);  
-%end ; 
-%end ; 
-run ; */
-
-
-
-/*proc print ; run ; */
-
 data dico ; set %do i=1 %to &nfic ; dico&i %end ; ; 
 call symput('nvar',trim(left(_n_))) ; 
 run ; 
@@ -213,13 +210,16 @@ data in1.dico ; set dico ; run ;
 
 proc print data=dico (obs=10) ; 
 run ;  
-/* cette partie est diffÃƒÆ’Ã‚Â©rente de l'import */
 
-/* %let nom_variable=1 -puis-  %let pays&nom_variable1=FR */
+/* partie 2 macro : traitement des donnees */
+
+/* le script fonctionne comme cela : %let nom_variable=1 -puis-  %let pays&nom_variable1=FR */
 
 %let pays1=FR ; %let pays2=AT ; %let pays3=BE ; %let pays4=BG; %let pays5=CZ ; %let pays6=DK ; %let pays7=DE ; %let pays8=EE; %let pays9=IE; %let pays10=EL; %let pays11=ES; %let pays12=HR; %let pays13=IT; %let pays14=CY; 
 %let pays15=LV; %let pays16=LT; %let pays17=LU; %let pays18=HU; %let pays19=MT; %let pays20=NL; %let pays21=PL; %let pays22=PT; %let pays23=RO; %let pays24=SI; %let pays25=SK; %let pays26=FI; %let pays27=SE; %let pays28=UK; 
-/* 28 variables pour 28 pays*/
+
+/* 28 variables pour les 28 pays au dessus : FRance , AT pour Autriche ... */
+
 %do l=1 %to 28 ;
 
 data dico&&pays&l ; set dico ; 
@@ -231,7 +231,6 @@ data dico&&pays&l ; set dico&&pays&l ;
 call symput("nvar&&pays&l",trim(left(_n_))) ;
 run ;
 
-/*pourquoi &&&&nvar ?*/
 data dico&&pays&l ; set dico&&pays&l ; 
 %do u=1 %to &&&&nvar&&pays&l ; 
 if _n_ eq &u then call symput("var&&pays&l.._&u",trim(left(nomvar))) ;
@@ -262,8 +261,12 @@ proc sql;
      where nom_fic in (select nom_fic from correspondance);
 quit;
 
+data in1.dico&&pays&l ; set dico&&pays&l ;
+data in1.a&&pays&l ; set a&&pays&l ;
 
 %end ; 
+
+
 
 
 
