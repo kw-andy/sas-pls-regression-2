@@ -12,7 +12,7 @@ libname in3 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\d
 
 /* remplacer <MoisAnnee> par le mois et l'annee */
 
-proc printto log="C:\travail\etudes\projetpib\docs\p3_<MoisAnnee>_v3.log" new;
+proc printto log="C:\travail\etudes\projetpib\docs\p3_<dateachanger>_v3.log" new;
   
 %macro lec;
   

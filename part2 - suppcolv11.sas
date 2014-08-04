@@ -8,7 +8,7 @@ libname in2 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\d
 
 /* remplacer <MoisAnnee> par le mois et l'annee */
 
-proc printto log="C:\travail\etudes\projetpib\docs\p2_<MoisAnnee>_v11.log" new;
+proc printto log="C:\travail\etudes\projetpib\docs\p2_<dateachanger>_v11.log" new;
 
 %macro dropcolsql;
 

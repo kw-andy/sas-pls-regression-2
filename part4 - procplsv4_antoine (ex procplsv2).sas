@@ -11,7 +11,7 @@ libname in4
 
 /* remplacer <MoisAnnee> par le mois et l'annee */
 
-proc printto log="C:\travail\etudes\projetpib\docs\p4_MoisAnnee_v2.log" new;
+proc printto log="C:\travail\etudes\projetpib\docs\p4_<dateachanger>_v2.log" new;
   
 %macro lapls;
   
