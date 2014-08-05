@@ -1,14 +1,12 @@
-/* remplacer <dateachanger> par la vraie date */
+/* on met today pour avoir la date sous forme yyyymmdd */
 
-libname in1 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\dico1";
+%let today=%sysfunc(compress(%sysfunc(today(),yymmddd10.),'-'));
 
-/* remplacer <dateachanger> par la vraie date */
+libname in1 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today.\dico1";
 
-libname in2 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\dico2";
+libname in2 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today.\dico2";
 
-/* remplacer <MoisAnnee> par le mois et l'annee */
-
-proc printto log="C:\travail\etudes\projetpib\docs\p2_<dateachanger>_v11.log" new;
+proc printto log="C:\travail\etudes\projetpib\docs\p2_&today._v11.log" new;
 
 %macro dropcolsql;
 

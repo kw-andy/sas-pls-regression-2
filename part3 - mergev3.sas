@@ -7,17 +7,19 @@
 %let pays12=IT; %let pays13=LV; %let pays14=LT; %let pays15=LU; %let pays16=HU; %let pays17=NL; %let pays18=PL; %let pays19=PT; %let pays20=RO; %let pays21=SI; %let pays22=SK; %let pays23=FI; %let pays24=SE; %let pays25=UK; 
 */
 
+/* on met today pour avoir la date sous forme yyyymmdd */
+
+%let today=%sysfunc(compress(%sysfunc(today(),yymmddd10.),'-'));
+
+libname in2 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today.\dico2";
+
 /* remplacer <dateachanger> par la vraie date */
 
-libname in2 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\dico2";
-
-/* remplacer <dateachanger> par la vraie date */
-
-libname in3 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\dico3";
+libname in3 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today.\dico3";
 
 /* remplacer <MoisAnnee> par le mois et l'annee */
 
-proc printto log="C:\travail\etudes\projetpib\docs\p3_<dateachanger>_v3.log" new;
+proc printto log="C:\travail\etudes\projetpib\docs\p3_&today._v3.log" new;
   
 %macro lec;
   

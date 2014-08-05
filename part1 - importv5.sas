@@ -1,20 +1,20 @@
-/* c'est un test - le 04/08/14 */
-/* remplacer <dateachanger> par la vraie date */
 
-libname in1 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\dico1";
+/* on met today pour avoir la date sous forme yyyymmdd */
+
+
+%let today=%sysfunc(compress(%sysfunc(today(),yymmddd10.),'-'));
+
+
+libname in1 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today.\dico1";
 
 /* options macrogen symbolgen ; */
 
-/* remplacer <dateachanger> par la vraie date */
-
-proc printto log="C:\travail\etudes\projetpib\docs\p1_<dateachanger>_v5.log" new;
+proc printto log="C:\travail\etudes\projetpib\docs\p1_&today._v5.log" new;
 
 /* partie 1 : mise en place de la correspondance des noms des fichiers et des noms des series telechargeee */
 
-/* remplacer <dateachanger> par la vraie date */
-
 PROC IMPORT OUT= corresp1
-            DATAFILE= "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\corresp<dateachanger>.txt"  
+            DATAFILE= "C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today\corresp&today..txt"  
             DBMS=DLM REPLACE;
      DELIMITER=' ';
 	guessingrows=1000 ; 
@@ -24,10 +24,8 @@ RUN;
 
 /* Nllecorresp<dateachanger>_v1.txt = fichier sans les v1, v2 etc ... */
 
-/* remplacer <dateachanger> par la vraie date */
-
 PROC IMPORT OUT= corresp2
-            DATAFILE= "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\nllecorresp<dateachanger>.txt"  
+            DATAFILE= "C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today\nllecorresp&today..txt"  
             DBMS=DLM REPLACE;
      DELIMITER=' ';
 	guessingrows=1000 ; 
@@ -115,7 +113,6 @@ run;
 
 
 /* debut de la macro */
-/* remplacer <dateachanger> par la vraie date */
 
 %macro lec ;
 
@@ -126,10 +123,8 @@ run;
 
 %do i=1 %to &nfic  ;
 
-/* remplacer <dateachanger> par la vraie date */
-
 data dico&i;
-infile "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\fich&i..csv" dlm=';' lrecl=900000 obs=1; 
+infile "C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today.\fich&i..csv" dlm=';' lrecl=900000 obs=1; 
 length intitule $50;
 do i=1 to 25000 ; 
   input intitule $ @;
@@ -151,10 +146,8 @@ length nom_fic $ 10;
 nom_fic="fich&i..csv"; 
 run ;
 
-/*remplacer <dateachanger> par la vraie date*/
-
 PROC IMPORT OUT= fic&i 
-            DATAFILE= "C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\fich&i..csv"  
+            DATAFILE= "C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today.\fich&i..csv"  
             DBMS=DLM REPLACE;
      DELIMITER='3B'x;
 	guessingrows=1000 ; 
@@ -261,14 +254,10 @@ proc sql;
      where nom_fic in (select nom_fic from correspondance);
 quit;
 
-data in1.dico&&pays&l ; set dico&&pays&l ;
-data in1.a&&pays&l ; set a&&pays&l ;
+data in1.dico&&pays&l ; set dico&&pays&l ;run;
+data in1.a&&pays&l ; set a&&pays&l ;run;
 
 %end ; 
-
-
-
-
 
 %mend ; 
 

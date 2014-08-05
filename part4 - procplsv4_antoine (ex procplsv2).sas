@@ -1,17 +1,13 @@
 
-/* remplacer <dateachanger> par la vraie date */
+/* on met today pour avoir la date sous forme yyyymmdd */
 
 libname in3 
-"C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\dico3"  ;
-
-/* remplacer <dateachanger> par la vraie date */
+"C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today.\dico3"  ;
 
 libname in4 
-"C:\travail\etudes\projetpib\donnees\fichiersfinaux\<dateachanger>\dico4"  ;
+"C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today.\dico4"  ;
 
-/* remplacer <MoisAnnee> par le mois et l'annee */
-
-proc printto log="C:\travail\etudes\projetpib\docs\p4_<dateachanger>_v2.log" new;
+proc printto log="C:\travail\etudes\projetpib\docs\p4_&today._v2.log" new;
   
 %macro lapls;
   
