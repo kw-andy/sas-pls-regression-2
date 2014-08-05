@@ -2,7 +2,7 @@
 /* on met today pour avoir la date sous forme yyyymmdd */
 
 
-%let today=%sysfunc(compress(%sysfunc(today(),yymmddd10.),'-'));
+%let today=%sysfunc(today(),yymmddn8.);
 
 
 libname in1 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today.\dico1";

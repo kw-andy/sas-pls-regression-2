@@ -1,6 +1,8 @@
 
 /* on met today pour avoir la date sous forme yyyymmdd */
 
+%let today=%sysfunc(today(),yymmddn8.);
+
 libname in3 
 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today.\dico3"  ;
 
