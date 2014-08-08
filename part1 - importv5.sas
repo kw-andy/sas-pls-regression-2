@@ -242,7 +242,8 @@ proc print data=a&&pays&l (obs=3) ;
 run ; 
 
 data dico&&pays&l ; set dico&&pays&l ; 
-length periode $1. date_publi $25. ajoutdate 3. dern_date_dispo ddmmyy10.;
+length periode $1. date_publi $25. ajoutdate 4.;
+format  dern_date_dispo ddmmyy10.;
 run;
 
 proc sql;
@@ -253,7 +254,7 @@ proc sql;
      set date_publi=(select date_publi from correspondance as h2 where h1.nom_fic=h2.nom_fic)
      where nom_fic in (select nom_fic from correspondance);
 	 update dico&&pays&l as h1
-     set date_publi=(select ajoutdate from correspondance as h2 where h1.nom_fic=h2.nom_fic)
+     set ajoutdate=(select ajoutdate from correspondance as h2 where h1.nom_fic=h2.nom_fic)
      where nom_fic in (select nom_fic from correspondance);
 quit;
 
