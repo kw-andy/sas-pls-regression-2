@@ -344,4 +344,7 @@ data in4.a&&pays&l.._res ; set a&&pays&l.._res ;
 
 %lapls;
 
+proc printto;
+run;
+
 

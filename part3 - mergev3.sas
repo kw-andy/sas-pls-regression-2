@@ -109,6 +109,10 @@ data in3.dico&&pays&l ; set dico&&pays&l;run;
  %mend ;
 
  %lec;
+ 
+proc printto;
+run;
+
 /* utilise pour test
 
 proc print data=aat;

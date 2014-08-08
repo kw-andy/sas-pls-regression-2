@@ -2785,6 +2785,9 @@ data in2.dico&&pays&nopays; set dico&&pays&nopays; run;
 
 %dropcolsql;
 
+proc printto;
+run;
+
 
 /*
 proc printto;

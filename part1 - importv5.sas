@@ -267,3 +267,6 @@ data in1.a&&pays&l ; set a&&pays&l ;run;
 
 %lec ; 
 
+proc printto;
+run;
+
