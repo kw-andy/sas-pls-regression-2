@@ -58,7 +58,9 @@ run ;
 
 options nonotes ;
 
-/* 5) Creation de deux boucles la , allant de 0 a 5 et lb, allant de 0 a 5*/
+/* 5) Creation de deux boucles la , allant de 0 a 5 et lb, allant de 0 a 5
+la et lb separes permettent d'avoir une non uniformite au niveau des modeles car "la" va avec Y et "lb" avec le reste des X
+*/
 
 %do la=0 %to 5 ;/* 0*/
  
@@ -134,7 +136,7 @@ if varnum_&i._&j eq 0 then varnum_&i._&j=0.0001 ;
 %end ; %end; 
 run  ; 
 
-/* 11) on fait un sommaire avec ? Pourquoi il n'y a pas de dataset ?*/
+/* 11) si pas de nom de tables, on prend la derniere table : truc de sas */
 
 proc summary nway ; id qtr_prev ann_prev ; 
 class annee qtr ; 
@@ -159,6 +161,9 @@ s'il y'a une deuxieme observation,
 on prend toutes les variables. si &i est different de i_pib ou j est different de 0,
 on met "ind" egale a la variable qui commence par varnum et on cree les variables qui commencent par
 "i2".
+
+ind=varnum_&i._&j ne . 
+-> cela permet de mettre 1 ou 0 -> 0 si missing values et 1 si la valeur existe
    
 */
 
@@ -193,7 +198,7 @@ si &la superieur ou egal a 1 , on donne la formule ci-dessous à la variable qui
 On applique le logarithme au reste des variables dans le cas ou &lb est egale a 0.
 On applique la formule ci-dessous au reste des variables dans le cas ou &lb est superieur ou egal a 1.
 exp(&la/5*log(&&&&var&&pays&l.._&i_pib.._t0))/(&la/5)
-Question : pourquoi avoir mis &la et &lb?
+
 */
 
 data a ; set a ; 
@@ -227,7 +232,7 @@ run ;
 
 La PLS tourne deux dois, une fois avec i1_ et une autre fois, avec  i2_
 avec les outputs respectifs pour chacun.
-
+La proc PLS ne prend que &&&&i1_&i._&j eq 1 (voir precedent)
 */
 
 %do u=1 %to 5; /* 4*/
@@ -286,13 +291,15 @@ delta_pib=(act_pib-lag(act_pib))/lag(act_pib) ;
 edelta_pib=(prev_pib-lag(prev_pib))/lag(prev_pib) ; 
 run ; 
 
-/*19) Je ne comprends pas cette partie*/
+/*19) sans instruction avec uniquement un if, on prend les observations 
+qui correspondent a ces conditions
+*/
 data a_res&u ; set a_res&u ; 
 if (annee gt ann_prev) or (annee eq ann_prev and qtr ge qtr_prev) ;
 run ; 
 
 
-/*20) On rajoute les modeles : A quoi sert hprev?*/
+/*20) On rajoute les modeles : hprev = horizon de prevision */
 data a_res&u ; set a_res&u ; 
 format model $50. ; 
 if nvar eq 1 then model="model1_&u._&la._&lb._&f      " ;

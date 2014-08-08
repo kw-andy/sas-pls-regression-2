@@ -99,7 +99,7 @@ dern_date_trim_0=intnx('quarter',intnx('month',date(),0,'E'),-1,'E');
 dern_date_publi_t_0=intnx('day',intnx('quarter',intnx('month',date(),0,'E'),-1,'E'),20);
 format dern_date_publi_t_0 dern_date_trim_0 dern_date_publi_t_1 dern_date_trim_1 dern_date_publi_t_2 dern_date_trim_2 dern_date_publi_t_3 dern_date_trim_3 dern_dispo ddmmyy10.; 
 end;
-else if periode="m" and ajoutdate ne 777 and var1=&nomficmne777 then do; 
+else if periode="m" and ajoutdate ne 777 and var1=&nomficm then do; 
    dern_date_mois_3=intnx('month',intnx('month',date(),0,'E'),-4,'E'); 
    dern_date_publi_m_3 =intnx('day',intnx('month',intnx('month',date(),0,'E'),-4,'E'),&ajoutdatemne777);
    dern_date_mois_2=intnx('month',intnx('month',date(),0,'E'),-3,'E'); 
@@ -110,25 +110,33 @@ else if periode="m" and ajoutdate ne 777 and var1=&nomficmne777 then do;
    dern_date_publi_m_0 =intnx('day',intnx('month',intnx('month',date(),0,'E'),-1,'E'),&ajoutdatemne777);
    format dern_date_mois_3 dern_date_publi_m_3 dern_date_mois_2 dern_date_publi_m_2 dern_date_mois_1 dern_date_publi_m_1 dern_date_mois_0 dern_date_publi_m_0 dern_dispo ddmmyy10.; 
 end;
-else if periode="m" and ajoutdate eq 777 and var1=&nomficm then do; 
-   dern_date_mois_3=intnx('month',intnx('weekday',intnx('month',date(),0,'E'),-1),-4); 
-   dern_date_publi_m_3 =intnx('day',intnx('month',intnx('weekday',intnx('month',date(),0,'E'),-1),-4),&ajoutdate);
-   dern_date_mois_2=intnx('month',intnx('weekday',intnx('month',date(),0,'E'),-1),-3); 
-   dern_date_publi_m_2 =intnx('day',intnx('month',intnx('weekday',intnx('month',date(),0,'E'),-1),-3),&ajoutdate);
-   dern_date_mois_1=intnx('month',intnx('weekday',intnx('month',date(),0,'E'),-1),-2); 
-   dern_date_publi_m_1 =intnx('day',intnx('month',intnx('weekday',intnx('month',date(),0,'E'),-1),-2),&ajoutdate);
-   dern_date_mois_0=intnx('month',intnx('weekday',intnx('month',date(),0,'E'),-1),-1); 
-   dern_date_publi_m_0 =intnx('day',intnx('month',intnx('weekday',intnx('month',date(),0,'E'),-1),-1),&ajoutdate);
-   format dern_date_mois_3 dern_date_publi_m_3 dern_date_mois_2 dern_date_publi_m_2 dern_date_mois_1 dern_date_publi_m_1 dern_date_mois_0 dern_date_publi_m_0 dern_dispo ddmmyy10.; 
+else if periode="m" and ajoutdate eq 777 and var1=&nomficmne777 then do; 
+   dern_date_mois_a_3=intnx('month',intnx('weekday',intnx('month',date(),0,'E'),-1),-4); 
+   dern_date_publi_a_m_3 =intnx('day',intnx('month',intnx('weekday',intnx('month',date(),0,'E'),-1),-4),&ajoutdate);
+   dern_date_mois_a_2=intnx('month',intnx('weekday',intnx('month',date(),0,'E'),-1),-3); 
+   dern_date_publi_a_m_2 =intnx('day',intnx('month',intnx('weekday',intnx('month',date(),0,'E'),-1),-3),&ajoutdate);
+   dern_date_mois_a_1=intnx('month',intnx('weekday',intnx('month',date(),0,'E'),-1),-2); 
+   dern_date_publi_a_m_1 =intnx('day',intnx('month',intnx('weekday',intnx('month',date(),0,'E'),-1),-2),&ajoutdate);
+   dern_date_mois_a_0=intnx('month',intnx('weekday',intnx('month',date(),0,'E'),-1),-1); 
+   dern_date_publi_a_m_0 =intnx('day',intnx('month',intnx('weekday',intnx('month',date(),0,'E'),-1),-1),&ajoutdate);
+   format dern_date_mois_a_3 dern_date_publi_a_m_3 dern_date_mois_a_2 dern_date_publi_a_m_2 dern_date_mois_a_1 dern_date_publi_a_m_1 dern_date_mois_a_0 dern_date_publi_a_m_0 dern_dispo ddmmyy10.; 
 end;
 
-if periode="q" and var1=&nomficq and dern_date_publi_0 < date()  then ;
+if periode="q" and var1=&nomficq and dern_date_publi_t_0 < date()  then ;
 dern_dispo=dern_date_mois_0; 
-else if periode="q" and var1=&nomficq and dern_date_publi_1 <  date() 
+else if periode="q" and var1=&nomficq and dern_date_publi_t_1 <  date() 
 then dern_dispo=dern_date_mois_1; 
-else if periode="q" and var1=&nomficq and dern_date_publi_2 <  date() 
+else if periode="q" and var1=&nomficq and dern_date_publi_t_2 <  date() 
 then dern_dispo=dern_date_mois_2; 
-else if var1="ei_eteu27_m.tsv" and dern_date_publi_3 <  date() then dern_dispo=dern_date_mois_3;
+else if periode="q" and var1=&nomficq and dern_date_publi_t_3  <  date() then dern_dispo=dern_date_mois_3;
+
+if periode="m" and ajoutdate ne 777 and var1=&nomficm and dern_date_publi_t_0 < date()  then ;
+dern_dispo=dern_date_mois_0; 
+else if periode="q" and var1=&nomficq and dern_date_publi_t_1 <  date() 
+then dern_dispo=dern_date_mois_1; 
+else if periode="q" and var1=&nomficq and dern_date_publi_t_2 <  date() 
+then dern_dispo=dern_date_mois_2; 
+else if periode="q" and var1=&nomficq and dern_date_publi_t_3  <  date() then dern_dispo=dern_date_mois_3;
 
 if var1="ei_bpfa_q.tsv" and dern_date_publi_0 < date() then dern_dispo=dern_date_trim_0; 
 else if var1="ei_bpfa_q.tsv" and dern_date_publi_1 <  date() then dern_dispo=dern_date_trim_1; 
