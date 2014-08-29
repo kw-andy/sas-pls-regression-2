@@ -8,10 +8,15 @@ libname in4
 
 proc printto log = "C:\travail\etudes\projetpib\docs\p4_20140821_v2.log" new;
 run;
+/*
+libname in3 
+"C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today.\dico3"  ;
 
-proc printto;
-run;
+libname in4 
+"C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today.\dico4"  ;
 
+proc printto log="C:\travail\etudes\projetpib\docs\p4_&today._v2.log" new;
+*/
   
 %macro lapls;
   

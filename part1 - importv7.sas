@@ -8,6 +8,15 @@ libname in1 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today.\dico1";
 
 /* partie 1 : mise en place de la correspondance des noms des fichiers et des noms des series telechargeee */
 
+
+/* les fichiers corresp<dateachanger>.txt et  nllecorresp&today..txt
+vont permettre d'avoir une correspondance entre les fichiers téléchargés 
+et les fichiers que l'on va importe dans SAS*/
+
+
+
+/* corresp<dateachanger>.txt = fichier sans les v1, v2 etc ... */
+
 PROC IMPORT OUT= corresp1
             DATAFILE= "C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today.\corresp&today..txt"  
             DBMS=DLM REPLACE;
@@ -17,7 +26,7 @@ PROC IMPORT OUT= corresp1
      DATAROW=1; 
 RUN;
 
-/* Nllecorresp<dateachanger>_v1.txt = fichier sans les v1, v2 etc ... */
+/* Nllecorresp<dateachanger>.txt = fichier sans les v1, v2 etc ... */
 
 PROC IMPORT OUT= corresp2
             DATAFILE= "C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today.\nllecorresp&today..txt"  
@@ -54,6 +63,10 @@ input date ddmmyy10.;
 format date ddmmyy10.;
 run;
  */
+ 
+ /*la partie di-dessous permet de definir  si le fichier est sorti l'avant dernier jour du mois avec le ajoutdate a 777
+ et le reste avec periode a month, quarter ou avec un label_eu_oc soit a euro pour les series d'eurostat ou a ocde pour les series d'ocde*/
+ 
 data correspondance;
 set correspondance (rename=var2=nom_fic);
 if var1="ei_bsco_m.tsv" then do; periode="month"; ajoutdate=777; end;
@@ -125,7 +138,10 @@ run;
 %macro lec ;
 
 /* partie 1 macro : import du dictionnaire et des donnees */
-/* nfic=88 : Nombre = Nombres de fichiers CSV ...*/
+/* nfic=88 -> Nombre = Nombres de fichiers CSV ...
+avec le split fait par le fichier shell , il y'a 88 fichiers.
+Il peut en avoir plus, il peut si on rajoute d'autres series.
+*/
 
 %let nfic=88  ; 
 
@@ -248,6 +264,9 @@ run ;
 
 proc print data=a&&pays&l (obs=3) ; 
 run ; 
+
+/* cette partie est la pour mettre dans le dico  pour chaque pays, si la serie est mensuelle ou trimestrielle , si elle est publie 
+le debut du mois ou la fin du mois */
 
 data dico&&pays&l ; set dico&&pays&l ; 
 length periode $7. ajoutdate 4.;

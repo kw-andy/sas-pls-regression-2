@@ -13,11 +13,7 @@
 
 libname in2 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today.\dico2";
 
-/* remplacer <dateachanger> par la vraie date */
-
 libname in3 "C:\travail\etudes\projetpib\donnees\fichiersfinaux\&today.\dico3";
-
-/* remplacer <MoisAnnee> par le mois et l'annee */
 
 proc printto log="C:\travail\etudes\projetpib\docs\p3_&today._v3.log" new;
   

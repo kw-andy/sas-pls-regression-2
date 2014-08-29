@@ -21,7 +21,9 @@ data dico&&pays&nopays;
 set in1.dico&&pays&nopays;
 run;
 
+/* je cree 7 tables avec tous les intitules que je veux supprimer*/
 
+/* table 1*/
 proc sql;
 create table vars1&nopays
 as 
@@ -262,6 +264,8 @@ intitule like 'NOMINAL,PCH_SAME,SWDA,O-S,LM-LCI-TOT%' or
 intitule like 'NOMINAL,PCH_SAME,WDA,O-S,LM-LCI-OTH%' or 
 intitule like 'NOMINAL,PCH_SAME,WDA,O-S,LM-LCI-SAL%' or 
 intitule like 'NOMINAL,PCH_SAME,WDA,O-S,LM-LCI-TOT%%');
+
+/* table 2*/
 
 proc sql;
 create table vars2&nopays
@@ -680,6 +684,8 @@ intitule like 'WDA,PCH_SAME_CPI05_NAC,P31_S15%' or
 intitule like 'WDA,PCH_SAME_CPI05_NAC,P32_S13%' or 
 intitule like 'WDA,PCH_SAME_CPI05_NAC,P3_S13%' or 
 intitule like 'WDA,PCH_SAME_CPI05_NAC,P41%');
+
+/* table 3*/
 
 proc sql;
 create table vars3&nopays
@@ -1275,6 +1281,8 @@ intitule like 'WDA,PCH_SAME_CPI05_NAC,P7_S2112%' or
 intitule like 'WDA,PCH_SAME_CPI05_NAC,P7_S212%' or 
 intitule like 'WDA,PCH_SAME_CPI05_NAC,P7_S22%');
 
+/* table 4*/
+
 proc sql;
 create table vars4&nopays
 as 
@@ -1804,6 +1812,8 @@ intitule like 'WDA,MIO_NAC_CLV2000,P7_S2112%' or
 intitule like 'WDA,MIO_NAC_CLV2000,P7_S212%' or 
 intitule like 'WDA,MIO_NAC_CLV2000,P7_S22%');
 
+/* table 5*/
+
 proc sql;
 create table vars5&nopays
 as 
@@ -2061,6 +2071,8 @@ intitule like 'WDA,MIO_EUR,N11131%' or
 intitule like 'WDA,MIO_EUR,N11132%' or 
 intitule like 'WDA,MIO_EUR,N1114%' or 
 intitule like 'WDA,MIO_EUR,N112%');
+
+/* table 6*/
 
 proc sql;
 create table vars6&nopays
@@ -2358,6 +2370,8 @@ intitule like 'WDA,PCH_SAME,N11132%' or
 intitule like 'WDA,PCH_SAME,N1114%' or 
 intitule like 'WDA,PCH_SAME,N112%');
 
+/* table 7*/
+
 proc sql;
 create table vars7&nopays
 as 
@@ -2566,6 +2580,9 @@ intitule like 'WDA,PCH_SAME_CPI05_NAC,N11132%' or
 intitule like 'WDA,PCH_SAME_CPI05_NAC,N1114%' or 
 intitule like 'WDA,PCH_SAME_CPI05_NAC,N112%');
 
+/* On cree une table centrale varsA&nopays et on insere les donnees de la table 1 et on insere les donnees qui 
+n'existent pas dans la table 1 provenant des 6 autres tables*/
+
 proc sql;
 create table varsA&nopays as select var from vars1&nopays;
 
@@ -2590,7 +2607,10 @@ insert into varsA&nopays select var from vars6&nopays where var not in (select v
 proc sql;
 insert into varsA&nopays select var from vars7&nopays where var not in (select var from vars6&nopays);
 
-
+/* on prend les donnees qui existent dans la table varsA&nopays
+et on supprime toutes les colonnes des tables a&&pays&nopays
+ */
+ 
 filename tempf temp;
 
 data _null_;
@@ -2605,6 +2625,8 @@ run;
 
 filename tempf clear;
 
+/*on supprime les noms des colonnes dans le dictionnaire */
+
 proc sql;
 delete from dico&&pays&nopays where nomvar in (select var from varsA&nopays);
 
@@ -2615,12 +2637,15 @@ quit;
 
 %put vartabname: &vartabname;
 
+/* suppression des 7 tables */
+
 proc datasets library = work;
     DELETE &vartabname;
 run;
 
 /* debut pour supprimer les valeurs redondantes dans le dico et dans les tables pays */
 
+/* creation des tables pour retenir les colonnes redondantes via le dictionnaire */
 
 proc sql;
 create table redundant1&&pays&nopays 
@@ -2630,6 +2655,8 @@ group by intitule
 having count(intitule) > 1;
 
 filename tempf temp;
+
+/* on prend les valeurs accumulees dans la table et on supprime les colonnes redondantes */
 
 data _null_;
    file tempf;
@@ -2642,6 +2669,8 @@ run;
 %inc tempf;
 
 filename tempf clear;
+
+/* on supprime les donnees redondantes dans le dictionnaire */
 
 proc sql;
 delete from dico&&pays&nopays where nomvar in (select nomvar from redundant1&&pays&nopays);
