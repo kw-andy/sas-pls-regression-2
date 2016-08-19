@@ -1,1 +1,4 @@
-'''SAS project I've done almost 2 years ago : [https://en.wikipedia.org/wiki/Partial_least_squares_regression PLS regression] done on SAS '''
+'''SAS project I've done almost 2 years ago : [PLS regression] done on SAS '''
+
+
+[1]: https://en.wikipedia.org/wiki/Partial_least_squares_regression
