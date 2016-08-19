@@ -1,5 +1,4 @@
-'''SAS project I've done almost 2 years ago : [PLS regression][1] done on SAS '''
+SAS project : [PLS regression](https://en.wikipedia.org/wiki/Partial_least_squares_regression)
 ###########
 
-
-[1]: https://en.wikipedia.org/wiki/Partial_least_squares_regression
+PLS regression done on [SAS](http://www.sas.com/en_us/home.html)
